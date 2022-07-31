@@ -115,34 +115,6 @@ bool ImageService::open(const char* FileName)
 	}
 	threads.clear();
 
-	FILE* yuvImage;
-	fopen_s(&yuvImage, "image.yuv", "wb");
-
-	for (int y = height; y > 0; y--)
-	{
-		for (int x = 0; x < width ; x++)
-		{
-			i = (y - 1) * width + x;
-			fwrite(&YUVPixels[i].Y, sizeof(byte), 1, yuvImage);
-		}
-	}
-	for (int y = height; y > 0; y+=-2)
-	{
-		for (int x = 0; x < width; x+=2)
-		{
-			i = (y - 1) * width + x;
-			fwrite(&YUVPixels[i].U, sizeof(byte), 1, yuvImage);
-		}
-	}
-	for (int y = height; y > 0; y+=-2)
-	{
-		for (int x = 0; x < width; x+=2)
-		{
-			i = (y - 1) * width + x;
-			fwrite(&YUVPixels[i].V, sizeof(byte), 1, yuvImage);
-		}
-	}
-	fclose(yuvImage);
 	fclose(imageFile);
 	return true;
 }
